@@ -1,0 +1,181 @@
+---
+title: "Pacote Leaflet"
+author: "Isabela R Aguilar"
+date: "22 de Janeiro 2021"
+output: html_document
+---
+
+```{r, echo=FALSE}
+
+library(dplyr)
+library(brazilmaps) 
+library(geobr)
+library(sf)
+library(maptools)
+library(leaflet)
+```
+
+
+```{r Image, echo=FALSE}
+htmltools::img(src = knitr::image_uri("logo.png"),
+               alt = 'logo',
+               style = 'position:absolute; top:0; right:0px;  padding:10px;'
+               )
+```
+
+<div style="text-align: justify">
+
+# **Introdução**
+
+Uma das bibliotecas JavaScript mais populares para a criação de mapas interativos. Esse pacote permite gerar esses mapas de forma direta no R, para usar em documentos RMarkdown e Shiny.
+
+## **Instalação**
+
+Para instalar este pacote R, execute este comando
+
+```{r eval=FALSE}
+install.packages("leaflet")
+```
+
+# **Como utilizar**
+
+Visando um exemplo básico, a criação de um mapa por meio desse pacote seguiria os seguintes passos:
+
+* Criação do mapa chamando`leaflet()`
+* Adição de camadas com as funções `addTiles`, `addMarkers` ou `addPolygons`
+* Imprimir
+
+```{r, warning=FALSE}
+
+library(leaflet)
+
+mapa <- leaflet() %>% 
+  addTiles() %>%  # Adicionando um recorte de mapa do OpenStreetMap
+  addMarkers(lng=-43.940925, lat=-19.929799, popup="Oper")
+mapa  # Imprimindo o mapa
+```
+
+# **Exemplo prático**
+
+Faremos agora um exemplo de aplicação desse pacote onde criaremos um mapa com a porcentagem de municípios com rede de esgoto em cada estado do Brasil.
+
+## **Esboço do mapa**
+Primeiramente precisamos carregar um esboço do mapa do Brasil com separação por estados por meio do pacote brazilmaps
+
+```{r, warning=FALSE, message=FALSE}
+
+
+mapa <- brazilmaps::get_brmap("State")
+
+mapa <- read_state(showProgress = FALSE) # Carregando o mapa do Brasil com o pacote brazilmaps
+
+``` 
+
+## **Dados necessários**
+
+Montaremos agora um dataframe com duas colunas, uma referente ao código de cada estado e outra referente ao valor em decimal correspondete a porcentagem de munícipios com saneamento básico em cada estado.
+
+```{r, warning=FALSE, message=FALSE}
+
+acesso_san <- data.frame(code_state = c(12, 27, 16, 13, 29, 23, 53, 32, 52, 21, 51, 50, 31, 15, 
+                                   25, 41, 26, 22, 33, 24, 43, 11, 14, 42, 35, 28, 17), 
+                         com_rede = c(0.273, 0.412, 0.313, 0.177, 0.513, 0.696, 1.000, 0.974, 0.280, 0.065, 
+                                      0.191, 0.449, 0.916, 0.063, 0.731, 0.421, 0.881, 0.045, 0.924, 0.353, 
+                                      0.405, 0.096, 0.400, 0.352, 0.998, 0.347, 0.129))
+
+```
+
+## **Coordenadas Geográficas**
+
+Agora precisamos extrair as coordenadas geográficas de onde estão localizados os dados que queremos apresentar. Utilizamos o comando `st_coordinates()` para obter um data frame com as coordenadas.
+
+```{r, warning=FALSE, message=FALSE}
+coord_pontos <- mapa %>% 
+                  left_join(acesso_san, by = "code_state") %>% 
+                  mutate(com_rede = 100*com_rede) %>% 
+                  st_centroid()
+
+dados <- data.frame(st_coordinates(coord_pontos), 
+           com_rede = coord_pontos$com_rede, 
+           UF = coord_pontos$name_state)
+```
+Obtemos então os seguintes dados, onde as colunas X e Y correspondem as latitudes e longitudes respectivamente.
+
+```{r, warning=FALSE, message=FALSE}
+head(dados)
+```
+
+## **Criação do mapa**
+
+Em seguida, com as informações anteriores contruiremos o gráfico onde teremos círculos com raios proporcionais a porcentagem de municípios com rede de esgoto em cada UF
+
+```{r, warning=FALSE, message=FALSE}
+
+  leaflet(dados) %>% 
+    addTiles() %>%
+    addCircleMarkers(~ X, ~ Y,
+                     label = ~ as.character(paste0(UF, ": ", com_rede, "%")),
+                     labelOptions = labelOptions(textsize = "13px"),
+                     radius = ~ sqrt(com_rede),
+                     fillOpacity = 0.5)
+
+```
+
+# **Mapas de calor (heatmaps)**
+
+Podemos criar também heatmaps para ilustrar esses dados, tonalizando cada estado conforme a porcentagem correspondente. Sendo assim, quanto maior a cobertura de saneamento básico em um estado mais vibrante será a sua coloração. 
+
+## **Delimitação dos estados**
+
+Para construir esse gráfico precisamos transformar as informações extraídas do mapa do Brasil em dados geométricos e unir com a base de dados que contém as informações que serão exibidas
+
+```{r, warning=FALSE, message=FALSE}
+geo <- st_as_sf(mapa)%>%
+  st_transform(4326)
+
+dados_final <- left_join(geo,dados, by = c("name_state" = "UF"))
+```
+## **Criação do mapa**
+
+E por fim criamos o mapa e a paleta de cores que irá tonalizá-lo.
+
+
+```{r, warning=FALSE, message=FALSE}
+cores <- colorNumeric(palette = "Blues", domain = dados$com_rede)
+leaflet(dados_final) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addPolygons(data = dados_final,
+              smoothFactor = 0.5,
+              fillOpacity = 0.5,
+              weight = 0.5,
+              color = ~cores(com_rede),
+              opacity = 0.8,
+              highlightOptions = highlightOptions(color = "white",
+                                                  weight = 2,
+                                                  bringToFront = TRUE),
+              popup = ~paste0(sep = " ",
+                              "<b>Estado: </b>", name_state, "<br>",
+                              "<b>Municípios com rede de esgoto: </b>", com_rede,"%"),
+              label = ~name_state) 
+```
+
+# **Curiosidade**
+
+
+* The New York Times
+
+
+```{r  echo=FALSE}
+htmltools::img(src = knitr::image_uri("Imagens/nytimes.png"), 
+               alt = 'logo'
+               )
+```
+
+# **Referências**
+
+* https://rstudio.github.io/leaflet/
+* https://www.curso-r.com/tags/leaflet/
+* https://blog.indicium.tech/como-criar-mapas-interativos-com-r-e-leaflet-com-dados-do-covid-19/
+* https://learn.r-journalism.com/en/mapping/leaflet_maps/leaflet/
+* https://www.nytimes.com/projects/elections/2013/nyc-primary/mayor/map.html (The New York Times)
+* https://cran.r-project.org/web/packages/leaflet/leaflet.pdf

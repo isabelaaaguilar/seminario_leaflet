@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 Exemplo prático | Pacote Leaflet</title>
+  <meta name="description" content=" 3 Exemplo prático | Pacote Leaflet" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 Exemplo prático | Pacote Leaflet" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 Exemplo prático | Pacote Leaflet" />
+  
+  
+  
+
+<meta name="author" content="Isabela R Aguilar" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="como-utilizar.html"/>
+<link rel="next" href="mapas-de-calor-heatmaps.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Seminário Pacote Leaflet</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introdução.html"><a href="introdução.html"><i class="fa fa-check"></i><b>1</b> <strong>Introdução</strong></a><ul>
+<li class="chapter" data-level="1.1" data-path="introdução.html"><a href="introdução.html#instalação"><i class="fa fa-check"></i><b>1.1</b> <strong>Instalação</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="como-utilizar.html"><a href="como-utilizar.html"><i class="fa fa-check"></i><b>2</b> <strong>Como utilizar</strong></a></li>
+<li class="chapter" data-level="3" data-path="exemplo-prático.html"><a href="exemplo-prático.html"><i class="fa fa-check"></i><b>3</b> <strong>Exemplo prático</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="exemplo-prático.html"><a href="exemplo-prático.html#esboço-do-mapa"><i class="fa fa-check"></i><b>3.1</b> <strong>Esboço do mapa</strong></a></li>
+<li class="chapter" data-level="3.2" data-path="exemplo-prático.html"><a href="exemplo-prático.html#dados-necessários"><i class="fa fa-check"></i><b>3.2</b> <strong>Dados necessários</strong></a></li>
+<li class="chapter" data-level="3.3" data-path="exemplo-prático.html"><a href="exemplo-prático.html#coordenadas-geográficas"><i class="fa fa-check"></i><b>3.3</b> <strong>Coordenadas Geográficas</strong></a></li>
+<li class="chapter" data-level="3.4" data-path="exemplo-prático.html"><a href="exemplo-prático.html#criação-do-mapa"><i class="fa fa-check"></i><b>3.4</b> <strong>Criação do mapa</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mapas-de-calor-heatmaps.html"><a href="mapas-de-calor-heatmaps.html"><i class="fa fa-check"></i><b>4</b> <strong>Mapas de calor (heatmaps)</strong></a><ul>
+<li class="chapter" data-level="4.1" data-path="mapas-de-calor-heatmaps.html"><a href="mapas-de-calor-heatmaps.html#delimitação-dos-estados"><i class="fa fa-check"></i><b>4.1</b> <strong>Delimitação dos estados</strong></a></li>
+<li class="chapter" data-level="4.2" data-path="mapas-de-calor-heatmaps.html"><a href="mapas-de-calor-heatmaps.html#criação-do-mapa-1"><i class="fa fa-check"></i><b>4.2</b> <strong>Criação do mapa</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="curiosidade.html"><a href="curiosidade.html"><i class="fa fa-check"></i><b>5</b> <strong>Curiosidade</strong></a></li>
+<li class="chapter" data-level="6" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i><b>6</b> <strong>Referências</strong></a></li>
+<li class="divider"></li>
+<li><a href="https://www.operdata.com.br/ target="blank"> Oper Data: Acesse nosso site</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pacote Leaflet</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exemplo-prático" class="section level1">
+<h1><span class="header-section-number"> 3</span> <strong>Exemplo prático</strong></h1>
+<p>Faremos agora um exemplo de aplicação desse pacote onde criaremos um mapa com a porcentagem de municípios com rede de esgoto em cada estado do Brasil.</p>
+<div id="esboço-do-mapa" class="section level2">
+<h2><span class="header-section-number">3.1</span> <strong>Esboço do mapa</strong></h2>
+<p>Primeiramente precisamos carregar um esboço do mapa do Brasil com separação por estados por meio do pacote brazilmaps</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">mapa &lt;-<span class="st"> </span>brazilmaps<span class="op">::</span><span class="kw">get_brmap</span>(<span class="st">&quot;State&quot;</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"></a>
+<a class="sourceLine" id="cb16-3" title="3">mapa &lt;-<span class="st"> </span><span class="kw">read_state</span>(<span class="dt">showProgress =</span> <span class="ot">FALSE</span>) <span class="co"># Carregando o mapa do Brasil com o pacote brazilmaps</span></a></code></pre></div>
+</div>
+<div id="dados-necessários" class="section level2">
+<h2><span class="header-section-number">3.2</span> <strong>Dados necessários</strong></h2>
+<p>Montaremos agora um dataframe com duas colunas, uma referente ao código de cada estado e outra referente ao valor em decimal correspondete a porcentagem de munícipios com saneamento básico em cada estado.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">acesso_san &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">code_state =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">27</span>, <span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">29</span>, <span class="dv">23</span>, <span class="dv">53</span>, <span class="dv">32</span>, <span class="dv">52</span>, <span class="dv">21</span>, <span class="dv">51</span>, <span class="dv">50</span>, <span class="dv">31</span>, <span class="dv">15</span>, </a>
+<a class="sourceLine" id="cb17-2" title="2">                                   <span class="dv">25</span>, <span class="dv">41</span>, <span class="dv">26</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">24</span>, <span class="dv">43</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">42</span>, <span class="dv">35</span>, <span class="dv">28</span>, <span class="dv">17</span>), </a>
+<a class="sourceLine" id="cb17-3" title="3">                         <span class="dt">com_rede =</span> <span class="kw">c</span>(<span class="fl">0.273</span>, <span class="fl">0.412</span>, <span class="fl">0.313</span>, <span class="fl">0.177</span>, <span class="fl">0.513</span>, <span class="fl">0.696</span>, <span class="fl">1.000</span>, <span class="fl">0.974</span>, <span class="fl">0.280</span>, <span class="fl">0.065</span>, </a>
+<a class="sourceLine" id="cb17-4" title="4">                                      <span class="fl">0.191</span>, <span class="fl">0.449</span>, <span class="fl">0.916</span>, <span class="fl">0.063</span>, <span class="fl">0.731</span>, <span class="fl">0.421</span>, <span class="fl">0.881</span>, <span class="fl">0.045</span>, <span class="fl">0.924</span>, <span class="fl">0.353</span>, </a>
+<a class="sourceLine" id="cb17-5" title="5">                                      <span class="fl">0.405</span>, <span class="fl">0.096</span>, <span class="fl">0.400</span>, <span class="fl">0.352</span>, <span class="fl">0.998</span>, <span class="fl">0.347</span>, <span class="fl">0.129</span>))</a></code></pre></div>
+</div>
+<div id="coordenadas-geográficas" class="section level2">
+<h2><span class="header-section-number">3.3</span> <strong>Coordenadas Geográficas</strong></h2>
+<p>Agora precisamos extrair as coordenadas geográficas de onde estão localizados os dados que queremos apresentar. Utilizamos o comando <code>st_coordinates()</code> para obter um data frame com as coordenadas.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">coord_pontos &lt;-<span class="st"> </span>mapa <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="st">                  </span><span class="kw">left_join</span>(acesso_san, <span class="dt">by =</span> <span class="st">&quot;code_state&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">com_rede =</span> <span class="dv">100</span><span class="op">*</span>com_rede) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="st">                  </span><span class="kw">st_centroid</span>()</a>
+<a class="sourceLine" id="cb18-5" title="5"></a>
+<a class="sourceLine" id="cb18-6" title="6">dados &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">st_coordinates</span>(coord_pontos), </a>
+<a class="sourceLine" id="cb18-7" title="7">           <span class="dt">com_rede =</span> coord_pontos<span class="op">$</span>com_rede, </a>
+<a class="sourceLine" id="cb18-8" title="8">           <span class="dt">UF =</span> coord_pontos<span class="op">$</span>name_state)</a></code></pre></div>
+<p>Obtemos então os seguintes dados, onde as colunas X e Y correspondem as latitudes e longitudes respectivamente.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">head</span>(dados)</a></code></pre></div>
+<pre><code>##           X          Y com_rede       UF
+## 1 -62.84416 -10.911831      9.6 Rondônia
+## 2 -70.47336  -9.212742     27.3     Acre
+## 3 -64.65304  -4.154146     17.7 Amazonas
+## 4 -61.39928   2.084252     40.0  Roraima
+## 5 -53.06406  -3.974674      6.3     Pará
+## 6 -51.95583   1.443336     31.3    Amapá</code></pre>
+</div>
+<div id="criação-do-mapa" class="section level2">
+<h2><span class="header-section-number">3.4</span> <strong>Criação do mapa</strong></h2>
+<p>Em seguida, com as informações anteriores contruiremos o gráfico onde teremos círculos com raios proporcionais a porcentagem de municípios com rede de esgoto em cada UF</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">  <span class="kw">leaflet</span>(dados) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="st">    </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="st">    </span><span class="kw">addCircleMarkers</span>(<span class="op">~</span><span class="st"> </span>X, <span class="op">~</span><span class="st"> </span>Y,</a>
+<a class="sourceLine" id="cb21-4" title="4">                     <span class="dt">label =</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(<span class="kw">paste0</span>(UF, <span class="st">&quot;: &quot;</span>, com_rede, <span class="st">&quot;%&quot;</span>)),</a>
+<a class="sourceLine" id="cb21-5" title="5">                     <span class="dt">labelOptions =</span> <span class="kw">labelOptions</span>(<span class="dt">textsize =</span> <span class="st">&quot;13px&quot;</span>),</a>
+<a class="sourceLine" id="cb21-6" title="6">                     <span class="dt">radius =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sqrt</span>(com_rede),</a>
+<a class="sourceLine" id="cb21-7" title="7">                     <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<div id="htmlwidget-823556b040a710173ae8" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-823556b040a710173ae8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircleMarkers","args":[[-10.9118311032594,-9.2127419810115,-4.15414573850092,2.08425165901458,-3.97467386045043,1.44333634204823,-10.1503209626709,-5.05592253745298,-7.38804468841773,-5.09292928018804,-5.83964913082457,-7.12104998066982,-8.32579918258376,-9.51535914276169,-10.584580737095,-12.4751826657873,-18.4562224673896,-19.5754301710879,-22.1961155408667,-22.2657943106738,-24.6359028595008,-27.2473815159599,-29.7060086003645,-20.3272988695566,-12.9488818911338,-16.042229685102,-15.7807232729118],[-62.8441553842305,-70.473362921674,-64.6530401615891,-61.3992836947273,-53.064057285489,-51.9558304782418,-48.3292681306563,-45.2790361859611,-42.9688339905369,-39.6160989501163,-36.6734892652545,-36.8323920493804,-37.9971783633458,-36.6225472419477,-37.4440302260577,-41.7208460066301,-44.6734210607636,-40.6684187427701,-42.6630732010239,-48.7287918314049,-51.6166447718738,-50.4744237242035,-53.3204167804414,-54.8456560060465,-55.9128933686857,-49.6236037953071,-47.7973808526615],[3.09838667696593,5.22494019104525,4.20713679359253,6.32455532033676,2.50998007960223,5.59464029227975,3.59165699921359,2.54950975679639,2.12132034355964,8.34266144584568,5.94138031100518,8.54985379991962,9.38616002420585,6.41872261435248,5.89067059000926,7.16240183178799,9.57078889120432,9.86914383318026,9.61249187255833,9.98999499499374,6.48845127900333,5.93295878967653,6.36396103067893,6.70074622710038,4.37035467668243,5.29150262212918,10],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.5},null,null,null,null,["Rondônia: 9.6%","Acre: 27.3%","Amazonas: 17.7%","Roraima: 40%","Pará: 6.3%","Amapá: 31.3%","Tocantins: 12.9%","Maranhão: 6.5%","Piauí: 4.5%","Ceará: 69.6%","Rio Grande Do Norte: 35.3%","Paraíba: 73.1%","Pernambuco: 88.1%","Alagoas: 41.2%","Sergipe: 34.7%","Bahia: 51.3%","Minas Gerais: 91.6%","Espirito Santo: 97.4%","Rio De Janeiro: 92.4%","São Paulo: 99.8%","Paraná: 42.1%","Santa Catarina: 35.2%","Rio Grande Do Sul: 40.5%","Mato Grosso Do Sul: 44.9%","Mato Grosso: 19.1%","Goiás: 28%","Distrito Federal: 100%"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"13px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-29.7060086003645,2.08425165901458],"lng":[-70.473362921674,-36.6225472419477]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="como-utilizar.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mapas-de-calor-heatmaps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>
